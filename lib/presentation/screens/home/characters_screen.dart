@@ -1,5 +1,6 @@
 import 'package:breaking_bad/business-logic/characters_cubit/characters_cubit.dart';
 import 'package:breaking_bad/data/models/character_model.dart';
+import 'package:breaking_bad/presentation/screens/character_details/character_details_screen.dart';
 import 'package:breaking_bad/shared/end_points.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,14 +63,14 @@ class CharactersScreen extends StatelessWidget {
       itemBuilder: (context,index)=>buildCharacterItem(
         CharactersCubit.get(context).isSearching?
         CharactersCubit.get(context).searchCharacters[index]:CharactersCubit.get(context).characters[index]
+          ,context
       ),
       itemCount: CharactersCubit.get(context).isSearching?
       CharactersCubit.get(context).searchCharacters.length:CharactersCubit.get(context).characters.length,
     );
   }
-  Widget buildCharacterItem(CharacterModel model){
-    return InkWell(
-      child: Container(
+  Widget buildCharacterItem(CharacterModel model,context){
+    return  Container(
         width: double.infinity,
         margin: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
         padding: const EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
@@ -78,29 +79,37 @@ class CharactersScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
 
         ),
-        child: GridTile(
-          footer: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-            color: Colors.black54,
-            alignment: Alignment.bottomCenter,
-            child: Text(model.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  height: 1.3,fontSize: 16,color: myWhite,fontWeight: FontWeight.bold),),
-          ),
-          child:Container(
-              color: myGray,
-              child:model.image.isNotEmpty?
-              FadeInImage.assetNetwork(
-                  width: double.infinity,
-                  height:double.infinity, fit: BoxFit.cover,
-                  placeholder: 'assets/images/loading.gif', image: model.image):Image.asset("assets/images/1.jpg")
+        child: InkWell(
+          onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>CharacterDetailsScreen(model)));
+          },
+          child: Hero(
+            tag: model.charId,
+            child: GridTile(
+              footer: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                color: Colors.black54,
+                alignment: Alignment.bottomCenter,
+                child: Text(model.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      height: 1.3,fontSize: 16,color: myWhite,fontWeight: FontWeight.bold),),
+              ),
+              child:Container(
+                  color: myGray,
+                  child:model.image.isNotEmpty?
+                  FadeInImage.assetNetwork(
+                      width: double.infinity,
+                      height:double.infinity, fit: BoxFit.cover,
+                      placeholder: 'assets/images/loading.gif', image: model.image):Image.asset("assets/images/1.jpg")
+              ),
+            ),
           ),
         ),
-      ),
+
     );
 
   }
