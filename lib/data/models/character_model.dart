@@ -4,7 +4,7 @@ class CharacterModel{
   late String birthday;
   late String nickName;
   late String image;
-  late List<dynamic> occupation;
+  late List<dynamic> jobs;
   late String status;
   late List<dynamic> appearance;
   late String portrayed;
@@ -17,7 +17,7 @@ class CharacterModel{
     nickName=json['nickname'];
     image=json['img'];
     status=json['status'];
-    occupation=['occupation'];
+    jobs=['occupation'];
     appearance=json['appearance'];
     portrayed=json['portrayed'];
     category=json['category'];

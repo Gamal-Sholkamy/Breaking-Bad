@@ -7,33 +7,41 @@ part 'characters_state.dart';
 
 class CharactersCubit extends Cubit<CharactersState> {
   CharactersCubit() : super(CharactersInitial());
- static CharactersCubit get(context)=>BlocProvider.of(context);
-  CharactersAPI charactersAPI=CharactersAPI();
-  bool isSearching=false;
-  List<CharacterModel> characters=[];
-  List<CharacterModel> searchCharacters=[];
-  List<CharacterModel>getAllCharacters(){
+
+  static CharactersCubit get(context) => BlocProvider.of(context);
+  CharactersAPI charactersAPI = CharactersAPI();
+  List<CharacterModel> characters = [];
+  List<CharacterModel> searchCharacters = [];
+  List<CharacterModel> searchCharactersAll = [];
+
+  List<CharacterModel> getAllCharacters() {
     emit(CharactersLoading());
-    charactersAPI.getAllCharacters().then((value){
-      characters=value.map((character) =>CharacterModel.fromJson(character)).toList();
+    charactersAPI.getAllCharacters().then((value) {
+      characters =
+          value.map((character) => CharacterModel.fromJson(character)).toList();
       emit(CharactersLoaded(characters));
-
-    } ).catchError((onError){
+    }).catchError((onError) {
       emit(CharactersError(onError.toString()));
-
     });
     return characters;
   }
-  List<CharacterModel> searchForCharacter(String searchWord){
-    searchCharacters=characters.where((character) =>character.name.toLowerCase().startsWith(searchWord) ).toList();
-    emit(CharactersSearchForCharacter());
+
+  // List<CharacterModel> searchForCharacter(String searchWord){
+  //   searchCharacters=characters.where((character) =>character.name.toLowerCase().startsWith(searchWord) ).toList();
+  //   emit(CharactersSearchForCharacter());
+  //   return searchCharacters;
+  //
+  // }
+
+  List<CharacterModel> searchForCharacter(String searchWord) {
+    charactersAPI.getAllCharacters().then((value) {
+      searchCharactersAll =
+          value.map((character) => CharacterModel.fromJson(character)).toList();
+      searchCharacters = searchCharactersAll
+          .where((character) =>
+              character.name.toLowerCase().startsWith(searchWord))
+          .toList();
+    }).catchError((onError) {});
     return searchCharacters;
   }
-  void changeAppBarDesign(){
-    isSearching=!isSearching;
-    emit(CharactersChangeAppBarDesign());
-
-  }
-
-
 }

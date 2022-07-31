@@ -1,3 +1,4 @@
+import 'package:breaking_bad/business-logic/appBar_cubit/app_bar_cubit.dart';
 import 'package:breaking_bad/business-logic/characters_cubit/characters_cubit.dart';
 import 'package:breaking_bad/presentation/screens/home/characters_screen.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider(create: (BuildContext context)=>AppBarCubit()),
       BlocProvider(create: (BuildContext context)=>CharactersCubit()..getAllCharacters()),
     ],
         child: MaterialApp(
