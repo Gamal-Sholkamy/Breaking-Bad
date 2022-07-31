@@ -5,6 +5,7 @@ import 'package:breaking_bad/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/characters_widgets/buildListView.dart';
+import '../../widgets/characters_widgets/home_app_bar.dart';
 
 class CharactersScreen extends StatefulWidget {
    CharactersScreen({Key? key}) : super(key: key);
@@ -26,13 +27,13 @@ class _CharactersScreenState extends State<CharactersScreen> {
         bool isSearching=AppBarCubit.get(context).isSearching;
         if (state is CharactersLoaded) {
           return Scaffold(
-            appBar: buildAppBarDesign(isSearching,context),
+            appBar: HomeAppBar(isSearching),
             body:SingleChildScrollView(
               child: Container(
                 color: myGray,
                 child:Column(
                   children: [
-                    BuildListView(context),
+                    BuildListView(),
                   ],
                 ),
               ),
@@ -50,66 +51,66 @@ class _CharactersScreenState extends State<CharactersScreen> {
   }
 
   // Widget buildListView(context){
-  PreferredSizeWidget buildAppBarDesign(bool isSearching,context){
-    return AppBar(
-      elevation: 0.0,
-      backgroundColor: myYellow,
-      leading: isSearching
-          ? IconButton(
-          onPressed: () {
-            AppBarCubit.get(context).changeAppBarDesign();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: myGray,
-          ))
-          : const SizedBox(
-        width: 5,
-      ),
-      title: isSearching? Container(
-        width: 200,
-        child: TextFormField(
-          controller: _searchController,
-          keyboardType: TextInputType.text,
-          onChanged: (value) {
-            CharactersCubit.get(context).searchForCharacter(value);
-          },
-          decoration: const InputDecoration(
-            hintText: "Search for Character..",
-            hintStyle: TextStyle(color: Colors.black54, fontSize: 18),
-            border: InputBorder.none,
-          ),
-          style: const TextStyle(color: Colors.black54, fontSize: 18),
-        ),
-      )
-          : const Text(
-        "Characters",
-        style: TextStyle(
-          color: myGray,
-        ),
-      ),
-      actions: [
-        if(isSearching)
-          IconButton(
-              onPressed: (){
-                AppBarCubit.get(context).changeAppBarDesign();
-                _searchController.clear();
-              },
-              icon: const Icon(Icons.clear,color: myGray,)
-          ),
-        if(!isSearching)
-          IconButton(
-              onPressed: (){
-                AppBarCubit.get(context).changeAppBarDesign();
-              },
-              icon: const Icon(Icons.search,color: myGray,)
-          ),
-        const SizedBox(width: 10,)
-      ],
+  // PreferredSizeWidget buildAppBarDesign(bool isSearching,context){
+  //   return AppBar(
+  //     elevation: 0.0,
+  //     backgroundColor: myYellow,
+  //     leading: isSearching
+  //         ? IconButton(
+  //         onPressed: () {
+  //           AppBarCubit.get(context).changeAppBarDesign();
+  //         },
+  //         icon: const Icon(
+  //           Icons.arrow_back,
+  //           color: myGray,
+  //         ))
+  //         : const SizedBox(
+  //       width: 5,
+  //     ),
+  //     title: isSearching? Container(
+  //       width: 200,
+  //       child: TextFormField(
+  //         controller: _searchController,
+  //         keyboardType: TextInputType.text,
+  //         onChanged: (value) {
+  //           CharactersCubit.get(context).searchForCharacter(value);
+  //         },
+  //         decoration: const InputDecoration(
+  //           hintText: "Search for Character..",
+  //           hintStyle: TextStyle(color: Colors.black54, fontSize: 18),
+  //           border: InputBorder.none,
+  //         ),
+  //         style: const TextStyle(color: Colors.black54, fontSize: 18),
+  //       ),
+  //     )
+  //         : const Text(
+  //       "Characters",
+  //       style: TextStyle(
+  //         color: myGray,
+  //       ),
+  //     ),
+  //     actions: [
+  //       if(isSearching)
+  //         IconButton(
+  //             onPressed: (){
+  //               AppBarCubit.get(context).changeAppBarDesign();
+  //               _searchController.clear();
+  //             },
+  //             icon: const Icon(Icons.clear,color: myGray,)
+  //         ),
+  //       if(!isSearching)
+  //         IconButton(
+  //             onPressed: (){
+  //               AppBarCubit.get(context).changeAppBarDesign();
+  //             },
+  //             icon: const Icon(Icons.search,color: myGray,)
+  //         ),
+  //       const SizedBox(width: 10,)
+  //     ],
+  //
+  //   );
 
-    );
 
 
 
-  }
 }

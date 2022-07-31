@@ -6,8 +6,7 @@ import '../../screens/character_details/character_details_screen.dart';
 
 class BuildCharacterItem extends StatelessWidget{
   final CharacterModel model;
-  final BuildContext context;
-  BuildCharacterItem(this.model,this.context);
+  BuildCharacterItem(this.model);
   @override
   Widget build(BuildContext context) {
     return  Container(

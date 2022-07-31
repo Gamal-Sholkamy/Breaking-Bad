@@ -1,12 +1,12 @@
 import 'package:breaking_bad/business-logic/appBar_cubit/app_bar_cubit.dart';
 import 'package:breaking_bad/presentation/widgets/characters_widgets/buildCharacterItem.dart';
+import 'package:breaking_bad/presentation/widgets/characters_widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business-logic/characters_cubit/characters_cubit.dart';
 
 class BuildListView extends StatelessWidget{
-  final BuildContext context;
-  BuildListView(this.context);
+
   @override
   Widget build(BuildContext context) {
     return  GridView.builder(
@@ -21,8 +21,8 @@ class BuildListView extends StatelessWidget{
       ),
       itemBuilder: (context,index)=>BuildCharacterItem(
           AppBarCubit.get(context).isSearching?
-          CharactersCubit.get(context).searchCharacters[index]:CharactersCubit.get(context).characters[index]
-          ,context
+              CharactersCubit.get(context).characters[index] :CharactersCubit.get(context).searchCharacters[index]
+          ,
       ),
       itemCount: AppBarCubit.get(context).isSearching?
       CharactersCubit.get(context).searchCharacters.length:CharactersCubit.get(context).characters.length,
