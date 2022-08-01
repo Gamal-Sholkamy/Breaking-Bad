@@ -17,7 +17,7 @@ class CharacterModel{
     nickName=json['nickname'];
     image=json['img'];
     status=json['status'];
-    jobs=['occupation'];
+    jobs=json['occupation'];
     appearance=json['appearance'];
     portrayed=json['portrayed'];
     category=json['category'];

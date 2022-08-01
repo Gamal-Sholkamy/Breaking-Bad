@@ -28,8 +28,8 @@ class CharacterDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //BuildCharacterInfo('Job : ',model.jobs.join(' / ')),
-                      //BuildDivider(270),
+                      BuildCharacterInfo('Job : ',model.jobs.join(' / ')),
+                      const BuildDivider(270),
                       BuildCharacterInfo('Appeared in : ',model.category),
                       const BuildDivider(215),
                       BuildCharacterInfo('Seasons : ',model.appearance.join(' / ')),

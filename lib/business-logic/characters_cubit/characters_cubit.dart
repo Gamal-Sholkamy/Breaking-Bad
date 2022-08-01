@@ -34,14 +34,25 @@ class CharactersCubit extends Cubit<CharactersState> {
   // }
 
   List<CharacterModel> searchForCharacter(String searchWord) {
-    charactersAPI.getAllCharacters().then((value) {
-      searchCharactersAll =
-          value.map((character) => CharacterModel.fromJson(character)).toList();
-      searchCharacters = searchCharactersAll
-          .where((character) =>
-              character.name.toLowerCase().startsWith(searchWord))
-          .toList();
-    }).catchError((onError) {});
-    return searchCharacters;
+    if (characters !=[]){
+        searchCharacters=characters.where((character) =>character.name.toLowerCase().startsWith(searchWord) ).toList();
+        emit(CharactersSearchingLoaded(searchCharacters));
+        return searchCharacters;
+    }
+    else {
+      charactersAPI.getAllCharacters().then((value) {
+        searchCharactersAll =
+            value.map((character) => CharacterModel.fromJson(character)).toList();
+        searchCharacters = searchCharactersAll
+            .where((character) =>
+            character.name.toLowerCase().startsWith(searchWord))
+            .toList();
+        emit(CharactersSearchingLoaded(searchCharacters));
+      }).catchError((onError) {
+        emit(CharactersSearchingError(onError.toString()));
+      });
+      return searchCharacters;
+    }
+
   }
 }

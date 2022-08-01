@@ -4,9 +4,9 @@ import '../../../data/models/character_model.dart';
 import '../../../shared/constants.dart';
 import '../../screens/character_details/character_details_screen.dart';
 
-class BuildCharacterItem extends StatelessWidget{
+class CharacterItemDesign extends StatelessWidget{
   final CharacterModel model;
-  BuildCharacterItem(this.model);
+   CharacterItemDesign(this.model);
   @override
   Widget build(BuildContext context) {
     return  Container(

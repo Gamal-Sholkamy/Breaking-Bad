@@ -15,7 +15,7 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-  final _searchController=TextEditingController();
+  // final _searchController=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +23,17 @@ class _CharactersScreenState extends State<CharactersScreen> {
       builder:(context, state) {
         CharactersCubit charactersCubit = CharactersCubit.get(context);
         List<CharacterModel> characters = charactersCubit.characters;
-        List<CharacterModel> searchedCharacters = [];
+        List<CharacterModel> searchedCharacters = charactersCubit.searchCharacters;
         bool isSearching=AppBarCubit.get(context).isSearching;
-        if (state is CharactersLoaded) {
+        if (state is CharactersLoaded || state is CharactersSearchingLoaded) {
           return Scaffold(
             appBar: HomeAppBar(isSearching),
             body:SingleChildScrollView(
               child: Container(
                 color: myGray,
                 child:Column(
-                  children: [
-                    BuildListView(),
+                  children: const [
+                    CharactersListView(),
                   ],
                 ),
               ),

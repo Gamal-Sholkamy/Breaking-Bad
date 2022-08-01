@@ -12,5 +12,13 @@ class CharactersError extends CharactersState {
   final String error;
   CharactersError(this.error);
 }
-class CharactersSearchForCharacter extends CharactersState {}
+class CharactersSearchingLoaded extends CharactersState {
+  List<CharacterModel>characters;
+  CharactersSearchingLoaded(this.characters);
+}
+class CharactersSearchingError extends CharactersState {
+  final String error;
+  CharactersSearchingError(this.error);
+}
+
 class CharactersChangeAppBarDesign extends CharactersState {}

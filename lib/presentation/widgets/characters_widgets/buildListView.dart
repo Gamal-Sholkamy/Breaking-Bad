@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../../business-logic/characters_cubit/characters_cubit.dart';
 
-class BuildListView extends StatelessWidget{
+class CharactersListView extends StatelessWidget{
+  const CharactersListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,9 @@ class BuildListView extends StatelessWidget{
         crossAxisSpacing: 1,
         mainAxisSpacing: 1,
       ),
-      itemBuilder: (context,index)=>BuildCharacterItem(
+      itemBuilder: (context,index)=>CharacterItemDesign(
           AppBarCubit.get(context).isSearching?
-              CharactersCubit.get(context).characters[index] :CharactersCubit.get(context).searchCharacters[index]
+              CharactersCubit.get(context).searchCharacters[index]:CharactersCubit.get(context).characters[index]
           ,
       ),
       itemCount: AppBarCubit.get(context).isSearching?
