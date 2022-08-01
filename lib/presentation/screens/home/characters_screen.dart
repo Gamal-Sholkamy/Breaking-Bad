@@ -19,20 +19,14 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CharactersCubit, CharactersState>(
-      builder:(context, state) {
-        CharactersCubit charactersCubit = CharactersCubit.get(context);
-        List<CharacterModel> characters = charactersCubit.characters;
-        List<CharacterModel> searchedCharacters = charactersCubit.searchCharacters;
-        bool isSearching=AppBarCubit.get(context).isSearching;
-        if (state is CharactersLoaded || state is CharactersSearchingLoaded) {
           return Scaffold(
-            appBar: HomeAppBar(isSearching),
+            backgroundColor: myGray,
+            appBar: HomeAppBar(AppBarCubit.get(context).isSearching),
             body:SingleChildScrollView(
               child: Container(
                 color: myGray,
                 child:Column(
-                  children: const [
+                  children:  [
                     CharactersListView(),
                   ],
                 ),
@@ -40,15 +34,6 @@ class _CharactersScreenState extends State<CharactersScreen> {
             ) ,
 
           );
-        }
-        else {
-          return Scaffold(
-            appBar: AppBar(backgroundColor: myYellow,),
-          );
-        }
-      } ,
-    );
-  }
 
   // Widget buildListView(context){
   // PreferredSizeWidget buildAppBarDesign(bool isSearching,context){
@@ -113,4 +98,4 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
 
 
-}
+}}
